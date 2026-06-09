@@ -1,0 +1,1226 @@
+/* ================== GLOBAL OVERRIDES (fix style.css conflicts) ================== */
+/*
+ * style.css sets: a, img, span, button { display: block }
+ * and: input { width: 100% }
+ * These break the account page layout — override them here.
+ */
+
+/* Inside account page: spans should be inline by default */
+.TaiKhoanPage span {
+    display: inline;
+}
+
+/* Inside account page: anchors should be inline by default unless overridden */
+.TaiKhoanPage a {
+    display: inline;
+}
+
+/* Nav links must stay flex */
+.account-nav-list li a {
+    display: flex !important;
+}
+
+/* Product image should not be block-level — keep it constrained in its container */
+.oh-product-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Badges, buttons in order card should be inline-flex */
+.oh-badge,
+.oh-payment-badge,
+.oh-btn,
+.oh-order-id,
+.oh-order-date,
+.oh-shop-btn {
+    display: inline-flex !important;
+}
+
+/* The oh-card actions (form button wrapper) */
+.oh-actions form {
+    display: inline;
+}
+
+/* Timeline: steps and lines must be flex items */
+.oh-timeline {
+    display: flex !important;
+    align-items: center;
+}
+
+.oh-step {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+}
+
+.oh-step-line {
+    display: block !important;
+    flex: 1;
+}
+
+/* Summary rows */
+.oh-summary-row {
+    display: flex !important;
+    justify-content: space-between;
+}
+
+/* Fix: input width:100% from style.css is fine for forms, but not for oh-summary spans */
+.oh-summary-row span {
+    display: inline !important;
+    width: auto;
+}
+
+/* Tracking info */
+.oh-tracking {
+    display: flex !important;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Product row */
+.oh-product-row {
+    display: flex !important;
+    align-items: center;
+    gap: 14px;
+}
+
+.oh-product-info {
+    display: flex !important;
+    flex-direction: column;
+}
+
+/* Card header */
+.oh-card-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Card meta (id + date stacked) */
+.oh-card-meta {
+    display: flex !important;
+    flex-direction: column;
+}
+
+/* Actions row */
+.oh-actions {
+    display: flex !important;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+/* Payment row */
+.oh-payment-row {
+    display: block;
+    margin-bottom: 14px;
+}
+
+/* ================== ACCOUNT PAGE LAYOUT ================== */
+
+.TaiKhoanPage {
+    background: #f4f6fb;
+    min-height: 80vh;
+    padding: 40px 0 60px;
+}
+
+.account-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: #1a1a2e;
+    margin-bottom: 36px;
+    letter-spacing: 0.5px;
+}
+
+.account-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .account-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---- Sidebar ---- */
+.account-sidebar {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(26, 26, 46, 0.07);
+    overflow: hidden;
+    position: sticky;
+    top: 20px;
+}
+
+.user-info-summary {
+    background: linear-gradient(135deg, #ee4d2d, #ff6633);
+    padding: 24px 20px;
+}
+
+.user-name-display {
+    color: #fff;
+    font-size: 15px;
+    margin: 0;
+}
+
+.user-name-display strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+.account-nav-list {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.account-nav-list li {
+    margin: 0;
+}
+
+.account-nav-list li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.account-nav-list li a i {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.account-nav-list li a:hover {
+    background: #fff5f2;
+    color: #ee4d2d;
+    border-left-color: #ee4d2d;
+}
+
+.account-nav-list li.active a {
+    background: linear-gradient(90deg, #fff2ef, #fff);
+    color: #ee4d2d;
+    font-weight: 700;
+    border-left-color: #ee4d2d;
+}
+
+/* ---- Content area ---- */
+.account-content {
+    min-height: 400px;
+}
+
+.tab-content {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(26, 26, 46, 0.07);
+    padding: 30px 32px;
+    animation: fadeInTab 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.content-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+}
+
+/* ---- Account forms ---- */
+.account-form {
+    margin-top: 24px;
+    max-width: 500px;
+}
+
+.account-form .input-group {
+    margin-bottom: 18px;
+}
+
+.account-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.account-form input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e0e3f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    background: #fafbff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.account-form input:focus {
+    outline: none;
+    border-color: #ee4d2d;
+    box-shadow: 0 0 0 3px rgba(238,77,45,0.1);
+    background: #fff;
+}
+
+.account-form input[readonly] {
+    background: #f0f0f0;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.btn-save {
+    margin-top: 8px;
+    background: linear-gradient(135deg, #ee4d2d, #ff6633);
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    box-shadow: 0 4px 14px rgba(238,77,45,0.3);
+}
+
+.btn-save:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(238,77,45,0.4);
+}
+
+/* ================== ALERTS ================== */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* CSS cho Modal Đăng Xuất (để đảm bảo hiển thị đẹp) */
+#logoutModal .modal-content {
+    text-align: center;
+    max-width: 400px;
+    padding: 30px;
+}
+
+#logoutModal .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#logoutModal .btn-confirm-logout {
+    background-color: #ff4d4f;
+    /* Màu đỏ cho nút đăng xuất */
+    color: white;
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logoutModal .btn-confirm-logout:hover {
+    background-color: #d9363e;
+}
+
+/* ================== ORDER HISTORY (redesigned) ================== */
+
+/* --- Section header --- */
+.oh-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.oh-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 4px 0;
+}
+
+.oh-subtitle {
+    font-size: 14px;
+    color: #8a8fa8;
+    margin: 0;
+}
+
+/* --- Empty state --- */
+.oh-empty {
+    text-align: center;
+    padding: 70px 20px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+    border-radius: 20px;
+    border: 2px dashed #e2e5f0;
+}
+
+.oh-empty-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ee4d2d22 0%, #ff663322 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.oh-empty-icon i {
+    font-size: 36px;
+    color: #ee4d2d;
+}
+
+.oh-empty h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 8px;
+}
+
+.oh-empty p {
+    font-size: 14px;
+    color: #8a8fa8;
+    margin: 0 0 24px;
+}
+
+.oh-shop-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ee4d2d, #ff6633);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(238, 77, 45, 0.35);
+}
+
+.oh-shop-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(238, 77, 45, 0.45);
+}
+
+/* --- Order list --- */
+.oh-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* --- Order card --- */
+.oh-card {
+    background: #fff;
+    border: 1px solid #eaecf4;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(26, 26, 46, 0.06);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.oh-card:hover {
+    box-shadow: 0 8px 30px rgba(26, 26, 46, 0.12);
+    transform: translateY(-2px);
+}
+
+/* --- Card header --- */
+.oh-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #fafbff 0%, #f5f7ff 100%);
+    border-bottom: 1px solid #eaecf4;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.oh-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.oh-order-id {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #3b5bdb;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.oh-order-id:hover {
+    color: #2145c7;
+}
+
+.oh-order-id i {
+    font-size: 16px;
+}
+
+.oh-order-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #8a8fa8;
+}
+
+.oh-order-date i {
+    font-size: 14px;
+}
+
+/* --- Status badges --- */
+.oh-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.oh-badge--pending {
+    background: #fff8e6;
+    color: #d48806;
+    border: 1.5px solid #ffe58f;
+}
+
+.oh-badge--confirmed {
+    background: #e8f4fd;
+    color: #1677c8;
+    border: 1.5px solid #91d5ff;
+}
+
+.oh-badge--shipping {
+    background: #fff3e6;
+    color: #d46b08;
+    border: 1.5px solid #ffd591;
+}
+
+.oh-badge--completed {
+    background: #e8f9f0;
+    color: #178a4a;
+    border: 1.5px solid #95de9c;
+}
+
+.oh-badge--cancelled {
+    background: #fff1f0;
+    color: #cf1322;
+    border: 1.5px solid #ffa39e;
+}
+
+/* --- Timeline stepper --- */
+.oh-timeline {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px;
+    gap: 0;
+    background: #fafbff;
+    border-bottom: 1px solid #eaecf4;
+    overflow-x: auto;
+}
+
+.oh-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.oh-step-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #adb5bd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.oh-step-dot i {
+    font-size: 14px;
+}
+
+.oh-step--done .oh-step-dot {
+    background: linear-gradient(135deg, #ee4d2d, #ff6633);
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(238, 77, 45, 0.4);
+}
+
+.oh-step--rejected .oh-step-dot {
+    background: linear-gradient(135deg, #cf1322, #f5222d) !important;
+    color: #fff !important;
+    box-shadow: 0 3px 12px rgba(207, 19, 34, 0.4) !important;
+}
+
+.oh-step--rejected .oh-step-label {
+    color: #cf1322 !important;
+}
+
+.oh-step-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #adb5bd;
+    white-space: nowrap;
+    transition: color 0.3s;
+}
+
+.oh-step--done .oh-step-label {
+    color: #ee4d2d;
+}
+
+.oh-step-line {
+    flex: 1;
+    height: 3px;
+    background: #e9ecef;
+    margin: 0 6px;
+    margin-bottom: 22px;
+    border-radius: 3px;
+    min-width: 30px;
+    transition: background 0.3s;
+}
+
+.oh-step-line--done {
+    background: linear-gradient(90deg, #ee4d2d, #ff6633);
+}
+
+/* --- Tracking info --- */
+.oh-tracking {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #fff8f6 0%, #fff5f0 100%);
+    border-bottom: 1px solid #fde8e0;
+    font-size: 13px;
+}
+
+.oh-tracking > i {
+    font-size: 18px;
+    color: #ee4d2d;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.oh-tracking-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.oh-tracking-info span {
+    color: #555;
+}
+
+.oh-tracking-info code {
+    background: #fff;
+    color: #ee4d2d;
+    border: 1px solid #fde8e0;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: monospace;
+}
+
+/* --- Product list --- */
+.oh-products {
+    padding: 0 24px;
+    background: #fff;
+}
+
+.oh-product-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.oh-product-row:last-child {
+    border-bottom: none;
+}
+
+.oh-product-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f5f5f5;
+    border: 1px solid #eee;
+}
+
+.oh-product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.oh-product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.oh-product-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1a1a2e;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.oh-product-variant {
+    font-size: 12px;
+    color: #8a8fa8;
+}
+
+.oh-product-qty {
+    font-size: 12px;
+    color: #adb5bd;
+    background: #f5f5f5;
+    padding: 2px 8px;
+    border-radius: 10px;
+    align-self: flex-start;
+}
+
+.oh-product-price {
+    font-weight: 700;
+    font-size: 15px;
+    color: #ee4d2d;
+    white-space: nowrap;
+    min-width: 90px;
+    text-align: right;
+}
+
+/* --- Card footer --- */
+.oh-card-footer {
+    padding: 16px 24px;
+    background: #f9faff;
+    border-top: 1px solid #eaecf4;
+}
+
+.oh-payment-row {
+    margin-bottom: 14px;
+}
+
+.oh-payment-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.oh-payment-badge--paid {
+    background: #e8f9f0;
+    color: #178a4a;
+}
+
+.oh-payment-badge--unpaid {
+    background: #fff8e6;
+    color: #d48806;
+}
+
+.oh-payment-badge i {
+    font-size: 14px;
+}
+
+/* --- Summary table --- */
+.oh-summary {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #eaecf4;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.oh-summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px dashed #f0f0f0;
+}
+
+.oh-summary-row:last-child {
+    border-bottom: none;
+}
+
+.oh-summary-total {
+    background: #fff8f6;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.oh-grand-total {
+    font-size: 16px;
+    color: #ee4d2d;
+    font-weight: 800;
+}
+
+/* --- Action buttons --- */
+.oh-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.oh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.oh-btn--cancel {
+    background: #fff;
+    color: #cf1322;
+    border: 1.5px solid #cf1322;
+}
+
+.oh-btn--cancel:hover {
+    background: #fff1f0;
+}
+
+.oh-btn--receive {
+    background: linear-gradient(135deg, #52c41a, #3aa809);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(82, 196, 26, 0.35);
+}
+
+.oh-btn--receive:hover {
+    box-shadow: 0 5px 16px rgba(82, 196, 26, 0.5);
+    transform: translateY(-1px);
+}
+
+.oh-btn--review {
+    background: linear-gradient(135deg, #ee4d2d, #ff6633);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(238, 77, 45, 0.35);
+}
+
+.oh-btn--review:hover {
+    box-shadow: 0 5px 16px rgba(238, 77, 45, 0.5);
+    transform: translateY(-1px);
+}
+
+.oh-btn--detail {
+    background: #f0f3ff;
+    color: #3b5bdb;
+    border: 1.5px solid #bac8ff;
+}
+
+.oh-btn--detail:hover {
+    background: #e0e7ff;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+    .oh-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .oh-timeline {
+        padding: 16px;
+        gap: 0;
+    }
+
+    .oh-step-dot {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+    }
+
+    .oh-step-label {
+        font-size: 10px;
+    }
+
+    .oh-step-line {
+        min-width: 18px;
+    }
+
+    .oh-actions {
+        justify-content: flex-start;
+    }
+
+    .oh-product-img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* ================== WARRANTY TABLE ================== */
+#warranty-management table {
+    table-layout: fixed;
+}
+
+#warranty-management table td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    vertical-align: middle;
+}
+
+#warranty-management table td img {
+    display: inline-block !important;
+}
+
+/* ================== WARRANTY MANAGEMENT (card redesign) ================== */
+.wm-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f4ff;
+}
+
+.wm-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wm-title i { color: #2980b9; }
+
+.wm-subtitle {
+    font-size: 13px;
+    color: #8a8fa8;
+    margin: 0;
+}
+
+.wm-count-badge {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.wm-group-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8a8fa8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.wm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Card */
+.wm-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border: 1.5px solid #eaecf4;
+    border-radius: 14px;
+    padding: 16px;
+    transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.wm-card:hover {
+    box-shadow: 0 6px 24px rgba(26,26,46,0.10);
+    transform: translateY(-2px);
+}
+
+.wm-card--sent {
+    background: #fafbff;
+    border-color: #dde3f5;
+}
+
+.wm-card--expired {
+    opacity: 0.7;
+    background: #fafafa;
+}
+
+/* Card image */
+.wm-card-img {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.wm-card-img img {
+    width: 68px;
+    height: 68px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1.5px solid #eee;
+    display: block !important;
+}
+
+.wm-card-urgent {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+/* Card body */
+.wm-card-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.wm-card-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wm-card-sub {
+    font-size: 12px;
+    color: #8a8fa8;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.wm-card-reason {
+    font-size: 12px;
+    color: #555;
+    background: #f5f7ff;
+    border-radius: 6px;
+    padding: 4px 10px;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+/* Deadline info */
+.wm-deadline-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.wm-date-from { color: #27ae60; font-weight: 600; }
+.wm-date-to   { color: #e74c3c; font-weight: 600; }
+.wm-arrow     { font-size: 10px; color: #adb5bd; }
+
+/* Timer bar */
+.wm-timer-bar {
+    width: 100%;
+    max-width: 220px;
+    height: 5px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.wm-timer-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+
+.wm-days-left {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.wm-expired-label {
+    font-size: 12px;
+    color: #e74c3c;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Card status / action column */
+.wm-card-status,
+.wm-card-action {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Badges */
+.wm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1.5px solid transparent;
+}
+
+.wm-badge--pending   { background:#fff8e6; color:#d48806; border-color:#ffe58f; }
+.wm-badge--processing{ background:#e6f7ff; color:#1890ff; border-color:#91d5ff; }
+.wm-badge--done      { background:#f0fff4; color:#178a4a; border-color:#95de9c; }
+.wm-badge--rejected  { background:#fff1f0; color:#cf1322; border-color:#ffa39e; }
+
+/* Return button */
+.wm-btn-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    white-space: nowrap;
+    box-shadow: 0 3px 10px rgba(192,57,43,0.3);
+}
+
+.wm-btn-return:hover {
+    box-shadow: 0 5px 18px rgba(192,57,43,0.45);
+    transform: translateY(-1px);
+}
+
+/* Empty state */
+.wm-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #adb5bd;
+}
+
+.wm-empty i {
+    font-size: 52px;
+    color: #bac8ff;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.wm-empty h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #555;
+    margin: 0 0 8px;
+}
+
+.wm-empty p {
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Fix: spans inside warranty cards */
+.wm-card span { display: inline-flex !important; }
+.wm-card-sub span { display: inline !important; }
+
+/* Fix radio buttons getting 100% width from style.css */
+.TaiKhoanPage input[type="radio"],
+#warrantyModal input[type="radio"] {
+    width: auto !important;
+    height: auto !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    align-self: flex-start;
+}
